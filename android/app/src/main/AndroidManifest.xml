@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_first_app_balcoder">
+    package="com.balcoder.flutter_first_app_balcoder">
    <application
         android:label="flutter_first_app_balcoder"
         android:icon="@mipmap/ic_launcher">

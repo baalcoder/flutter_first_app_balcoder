@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "799410285177",
+    "project_id": "flutter-class-balcoder",
+    "storage_bucket": "flutter-class-balcoder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799410285177:android:1b25409f6c256174dd02a8",
+        "android_client_info": {
+          "package_name": "com.balcoder.flutter_first_app_balcoder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799410285177-vjpffmda3k6rhrb37rnk3jqmcjibkjn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz9Us4W2RmdcnIxmJ5GT6i94sF7cFysd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "799410285177-vjpffmda3k6rhrb37rnk3jqmcjibkjn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

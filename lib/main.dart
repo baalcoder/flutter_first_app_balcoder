@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app_balcoder/ui/home_page.dart';
 import 'package:flutter_first_app_balcoder/ui/user/user_form_page.dart';
+import 'package:flutter_first_app_balcoder/ui/user/user_list_page.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: UserFormPage(),
+      home: UserListPage(),
     );
   }
 }

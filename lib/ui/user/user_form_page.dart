@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app_balcoder/ui/user/model/user_model.dart';
 import 'package:flutter_first_app_balcoder/utils/custom_container.dart';
 import 'package:flutter_first_app_balcoder/utils/custom_textformfield.dart';
 
 class UserFormPage extends StatefulWidget {
-  const UserFormPage({Key? key}) : super(key: key);
+  UserFormPage({Key? key, required this.userModel}) : super(key: key);
+
+  UserModel userModel;
 
   @override
   _UserFormPageState createState() => _UserFormPageState();
@@ -21,8 +24,18 @@ class _UserFormPageState extends State<UserFormPage> {
     // TODO: implement initState
     super.initState();
 
-    _controllerName = new TextEditingController(text: "");
-    _controllerEmail = new TextEditingController(text: "");
+    print(widget.userModel.userName);
+    print(widget.userModel.userEmail);
+
+    if (widget.userModel.key != null) {
+      _controllerName =
+          new TextEditingController(text: widget.userModel.userName);
+      _controllerEmail =
+          new TextEditingController(text: widget.userModel.userEmail);
+    } else {
+      _controllerName = new TextEditingController(text: "");
+      _controllerEmail = new TextEditingController(text: "");
+    }
   }
 
   @override
@@ -31,6 +44,11 @@ class _UserFormPageState extends State<UserFormPage> {
     double _width = MediaQuery.of(context).size.width * 0.65;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Text("User Form Page"),
+        ),
+      ),
       body: Container(
         child: Center(
             child: !isLoading
@@ -54,29 +72,59 @@ class _UserFormPageState extends State<UserFormPage> {
                             isLoading = true;
                           });
 
-                          print("User Name: " + _controllerName.text);
-                          print("User Email: " + _controllerEmail.text);
+                          if (widget.userModel.key != null) {
+                            print("User Name: " + _controllerName.text);
+                            print("User Email: " + _controllerEmail.text);
 
-                          FirebaseFirestore.instance
-                              .collection("userCollection")
-                              .add(
-                            {
-                              "userName": _controllerName.text,
-                              "userEmail": _controllerEmail.text
-                            },
-                          ).then((value) {
-                            print("User Added");
+                            FirebaseFirestore.instance
+                                .collection("userCollection")
+                                .doc(widget.userModel.key)
+                                .update(
+                              {
+                                "userName": _controllerName.text,
+                                "userEmail": _controllerEmail.text
+                              },
+                            ).then((value) {
+                              print("User Updated");
 
-                            _controllerName.text = "";
-                            _controllerEmail.text = "";
-                            
-                            setState(() {
-                              isLoading = false;
+                              _controllerName.text = "";
+                              _controllerEmail.text = "";
+
+                              setState(() {
+                                isLoading = false;
+                                Navigator.pop(context);
+                              });
                             });
-                          });
+                          } else {
+                            print("User Name: " + _controllerName.text);
+                            print("User Email: " + _controllerEmail.text);
+
+                            FirebaseFirestore.instance
+                                .collection("userCollection")
+                                .add(
+                              {
+                                "userName": _controllerName.text,
+                                "userEmail": _controllerEmail.text,
+                                "isDeleted": false
+                              },
+                            ).then((value) {
+                              print("User Added");
+
+                              _controllerName.text = "";
+                              _controllerEmail.text = "";
+
+                              setState(() {
+                                isLoading = false;
+
+                                Navigator.pop(context);
+                              });
+                            });
+                          }
                         },
                         child: CustomContainer(
-                          titleText: "Add User",
+                          titleText: widget.userModel.key != null
+                              ? "Update user"
+                              : "Add User",
                           sizeHeight: _height * 0.05,
                           sizeWidth: _width * 0.65,
                           color: Colors.green,
